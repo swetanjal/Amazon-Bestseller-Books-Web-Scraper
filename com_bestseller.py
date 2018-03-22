@@ -11,9 +11,11 @@ books_average_rating = []
 books_number_rating = []
 
 def write(file):
+	class excel_semicolon(csv.excel):
+		delimiter=';'
 	with open(file, 'w', newline='') as csvfile:
 		fieldnames = ['Name', 'URL', 'Author', 'Price', 'Number of Ratings', 'Average Rating']
-		writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+		writer = csv.DictWriter(csvfile, fieldnames=fieldnames, dialect=excel_semicolon)
 		writer.writeheader()
 		for i in range(len(books_rank)):
 			writer.writerow({'Name': books_title[i], 'URL': books_url[i], 'Author': books_author[i], 'Price': books_price[i], 'Number of Ratings': books_number_rating[i], 'Average Rating': books_average_rating[i]})
