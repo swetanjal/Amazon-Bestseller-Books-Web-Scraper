@@ -21,8 +21,11 @@ def write(file):
             csvfile, fieldnames=fieldnames, dialect=excel_semicolon)
         writer.writeheader()
         for i in range(len(books_rank)):
-            writer.writerow({'Name': books_title[i], 'URL': books_url[i], 'Author': books_author[i], 'Price': books_price[i],
-                             'Number of Ratings': books_number_rating[i], 'Average Rating': books_average_rating[i]})
+            writer.writerow({'Name': books_title[i], 'URL': books_url[i],
+                             'Author': books_author[i],
+                             'Price': books_price[i],
+                             'Number of Ratings': books_number_rating[i],
+                             'Average Rating': books_average_rating[i]})
 
 
 def solve(url):
@@ -34,7 +37,8 @@ def solve(url):
 
     def getPropertyText(element, class_name):
         prop = book.find(element, class_name)
-        if prop is None or (class_name == "a-icon-alt" and prop.text.strip() == "Prime"):
+        if prop is None or (class_name == "a-icon-alt" and
+                            prop.text.strip() == "Prime"):
             return "Not available"
         else:
             return prop.text.strip()
@@ -49,7 +53,11 @@ def solve(url):
             'div', 'p13n-sc-truncate p13n-sc-line-clamp-1'))
         books_author.append(getPropertyText('div', 'a-row a-size-small'))
         books_url.append(getPropertyHref('a', 'a-link-normal'))
-        books_price.append(u"\u20B9" + getPropertyText('span', 'p13n-sc-price'))
+        tmp = getPropertyText('span', 'p13n-sc-price')
+        if tmp == "Not available":
+            books_price.append(tmp)
+        else:
+            books_price.append(u"\u20B9" + tmp)
         books_average_rating.append(getPropertyText('span', 'a-icon-alt'))
         books_number_rating.append(getPropertyText(
             'a', 'a-size-small a-link-normal'))

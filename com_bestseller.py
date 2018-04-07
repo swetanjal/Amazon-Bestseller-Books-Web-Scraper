@@ -21,8 +21,11 @@ def write(file):
             csvfile, fieldnames=fieldnames, dialect=excel_semicolon)
         writer.writeheader()
         for i in range(len(books_rank)):
-            writer.writerow({'Name': books_title[i], 'URL': books_url[i], 'Author': books_author[i], 'Price': books_price[i],
-                             'Number of Ratings': books_number_rating[i], 'Average Rating': books_average_rating[i]})
+            writer.writerow({'Name': books_title[i], 'URL': books_url[i],
+                             'Author': books_author[i],
+                             'Price': books_price[i],
+                             'Number of Ratings': books_number_rating[i],
+                             'Average Rating': books_average_rating[i]})
 
 
 def solve(url):
@@ -34,7 +37,8 @@ def solve(url):
 
     def getPropertyText(element, class_name):
         prop = book.find(element, class_name)
-        if prop is None or (class_name == "a-icon-alt" and prop.text.strip() == "Prime"):
+        if prop is None or (class_name == "a-icon-alt" and
+                            prop.text.strip() == "Prime"):
             return "Not available"
         else:
             return prop.text.strip()
@@ -55,9 +59,14 @@ def solve(url):
             'a', 'a-size-small a-link-normal'))
 
 
-solve('https://www.amazon.com/best-sellers-books-Amazon/zgbs/books/ref=zg_bs_pg_1?_encoding=UTF8&pg=1')
-solve('https://www.amazon.com/best-sellers-books-Amazon/zgbs/books/ref=zg_bs_pg_2?_encoding=UTF8&pg=2')
-solve('https://www.amazon.com/best-sellers-books-Amazon/zgbs/books/ref=zg_bs_pg_3?_encoding=UTF8&pg=3')
-solve('https://www.amazon.com/best-sellers-books-Amazon/zgbs/books/ref=zg_bs_pg_4?_encoding=UTF8&pg=4')
-solve('https://www.amazon.com/best-sellers-books-Amazon/zgbs/books/ref=zg_bs_pg_5?_encoding=UTF8&pg=5')
+solve('https://www.amazon.com/best-sellers-books-Amazon/' +
+      'zgbs/books/ref=zg_bs_pg_1?_encoding=UTF8&pg=1')
+solve('https://www.amazon.com/best-sellers-books-Amazon/' +
+      'zgbs/books/ref=zg_bs_pg_2?_encoding=UTF8&pg=2')
+solve('https://www.amazon.com/best-sellers-books-Amazon/' +
+      'zgbs/books/ref=zg_bs_pg_3?_encoding=UTF8&pg=3')
+solve('https://www.amazon.com/best-sellers-books-Amazon/' +
+      'zgbs/books/ref=zg_bs_pg_4?_encoding=UTF8&pg=4')
+solve('https://www.amazon.com/best-sellers-books-Amazon/' +
+      'zgbs/books/ref=zg_bs_pg_5?_encoding=UTF8&pg=5')
 write('./output/com_book.csv')
